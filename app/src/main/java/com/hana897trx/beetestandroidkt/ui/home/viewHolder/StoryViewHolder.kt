@@ -9,7 +9,7 @@ import com.hana897trx.beetestandroidkt.data.models.TileModel
 import com.hana897trx.beetestandroidkt.databinding.StoryComponentBinding
 import com.hana897trx.beetestandroidkt.ui.details.DetailsFragment.Companion.ARGUMENT_TILE_MODEL
 
-class StoriesViewHolder(
+class StoryViewHolder(
     private val binding: StoryComponentBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(tileModel: TileModel) = with(binding) {

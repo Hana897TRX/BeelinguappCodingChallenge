@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">beeTestAndroidKt</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_home">Colección</string>
+    <string name="error_loading">Hubo un error al cargar el contenido, intenta nuevamente mas tarde.</string>
+</resources>

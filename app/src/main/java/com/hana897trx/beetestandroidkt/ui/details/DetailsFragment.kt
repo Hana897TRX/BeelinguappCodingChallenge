@@ -5,18 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.hana897trx.beetestandroidkt.R
 import com.hana897trx.beetestandroidkt.data.models.TileModel
 import com.hana897trx.beetestandroidkt.databinding.FragmentDetailsBinding
+import com.hana897trx.beetestandroidkt.utils.StoryLevel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
-    private val binding get() =
+    private val binding
+        get() =
             _binding!!
 
     override fun onCreateView(
@@ -41,9 +42,19 @@ class DetailsFragment : Fragment() {
             .centerCrop()
             .placeholder(R.drawable.place_holder)
             .into(imgCover)
+
         txtTitle.text = data.titles[data.languageIndex]
         txtStoryName.text = data.name
         txtDescription.text = data.description[data.languageIndex]
+
+        imgDifficulty.setImageResource(
+            when (data.storyLevel) {
+                StoryLevel.BEGINNER -> R.drawable.high_signal
+                StoryLevel.INTERMEDIATE -> R.drawable.medium_signal
+                StoryLevel.ADVANCED -> R.drawable.low_signal
+                StoryLevel.NO_RELATED -> R.drawable.ic_cancel
+            }
+        )
 
         btnBack.setOnClickListener {
             activity?.onBackPressed()

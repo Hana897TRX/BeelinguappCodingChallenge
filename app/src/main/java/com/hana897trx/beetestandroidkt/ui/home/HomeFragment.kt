@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.hana897trx.beetestandroidkt.databinding.FragmentHomeBinding
-import com.hana897trx.beetestandroidkt.ui.home.adapters.RVContentAdapter
+import com.hana897trx.beetestandroidkt.ui.home.adapters.RowStoryAdapter
 import com.hana897trx.beetestandroidkt.ui.home.events.StoriesEvent
 import com.hana897trx.beetestandroidkt.ui.home.viewModel.HomeViewModel
+import com.hana897trx.beetestandroidkt.utils.hide
+import com.hana897trx.beetestandroidkt.utils.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -24,7 +26,7 @@ class HomeFragment: Fragment() {
 
     private val vm: HomeViewModel by viewModels()
 
-    private val adapter : RVContentAdapter = RVContentAdapter()
+    private val rowStoryAdapter : RowStoryAdapter = RowStoryAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,15 +43,36 @@ class HomeFragment: Fragment() {
     }
 
     private fun setInitViews() = with(binding) {
-        rvContent.adapter = adapter
+        rvContent.adapter = rowStoryAdapter
     }
 
     private fun getStories() {
         vm.storiesEvent.onEach { response ->
             when(response) {
-                is StoriesEvent.Loading -> {  }
-                is StoriesEvent.Success -> { adapter.submitList(response.data) }
-                is StoriesEvent.Error -> {  }
+                is StoriesEvent.Loading -> {
+                    binding.run {
+                        rvContent.hide()
+                        txtError.hide()
+                        contentPlaceHolder.root.show()
+                        contentPlaceHolder.shimmerContentHome.startShimmer()
+                    }
+                }
+                is StoriesEvent.Success -> {
+                    rowStoryAdapter.submitList(response.data)
+                    binding.run {
+                        rvContent.show()
+                        contentPlaceHolder.root.hide()
+                        txtError.hide()
+                        contentPlaceHolder.shimmerContentHome.stopShimmer()
+                    }
+                }
+                is StoriesEvent.Error -> {
+                    binding.run {
+                        rvContent.hide()
+                        contentPlaceHolder.root.hide()
+                        txtError.show()
+                    }
+                }
             }
         }.launchIn(lifecycleScope)
     }

@@ -2,6 +2,7 @@ package com.hana897trx.beetestandroidkt.data.models
 
 import android.os.Parcelable
 import com.hana897trx.beetestandroidkt.utils.Constants.EMPTY
+import com.hana897trx.beetestandroidkt.utils.StoryLevel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,5 +14,6 @@ data class TileModel (
     val description: List<String> = emptyList(),
     val dynamicCategories: List<String> = emptyList(),
     val levelV2: String = EMPTY,
-    val languageIndex: Int
+    val languageIndex: Int = -1,
+    val storyLevel: StoryLevel = StoryLevel.NO_RELATED
 ) : Parcelable

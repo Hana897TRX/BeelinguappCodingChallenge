@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.hana897trx.beetestandroidkt.data.models.TileModel
 import com.hana897trx.beetestandroidkt.databinding.StoryComponentBinding
-import com.hana897trx.beetestandroidkt.ui.home.viewHolder.StoriesViewHolder
+import com.hana897trx.beetestandroidkt.ui.home.viewHolder.StoryViewHolder
 
-class StoriesAdapter : ListAdapter<TileModel, StoriesViewHolder>(DiffUtilities()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesViewHolder =
-        StoriesViewHolder(
+class StoryAdapter : ListAdapter<TileModel, StoryViewHolder>(DiffUtilities()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder =
+        StoryViewHolder(
             StoryComponentBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -18,7 +18,7 @@ class StoriesAdapter : ListAdapter<TileModel, StoriesViewHolder>(DiffUtilities()
             )
         )
 
-    override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
